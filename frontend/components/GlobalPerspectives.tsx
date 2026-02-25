@@ -56,7 +56,7 @@ const GlobalPerspectives: React.FC = () => {
                     {/* Right Column: Event Grid */}
                     <div className="lg:w-[55%] w-full">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-                            {perspectives.map((p, idx) => (
+                            {Array.isArray(perspectives) && perspectives.map((p, idx) => (
                                 <motion.div
                                     key={idx}
                                     initial={{ opacity: 0, y: 30 }}

@@ -56,7 +56,7 @@ const ReadingRoom: React.FC = () => {
 
                 {/* Grid Section */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
-                    {books.map((book, idx) => (
+                    {Array.isArray(books) && books.map((book, idx) => (
                         <motion.div
                             key={idx}
                             initial={{ opacity: 0, y: 30 }}

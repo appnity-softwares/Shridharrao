@@ -25,14 +25,14 @@ const ArchivesPage: React.FC = () => {
         queryFn: () => fetchArticles(undefined, language)
     });
 
-    const filteredArticles = articles.filter(art => {
+    const filteredArticles = Array.isArray(articles) ? articles.filter(art => {
         const matchesSearch = art.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             art.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesFilter = activeFilter === 'All' || art.category === activeFilter;
         return matchesSearch && matchesFilter;
-    });
+    }) : [];
 
-    const categories = ['All', ...new Set(articles.map(a => a.category))];
+    const categories = ['All', ...(Array.isArray(articles) ? [...new Set(articles.map(a => a.category))] : [])];
 
     if (isLoading) return <div className="min-h-screen bg-slate-50 flex items-center justify-center">Loading Archive...</div>;
 

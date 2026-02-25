@@ -462,7 +462,7 @@ func hashPassword(password string) (string, error) {
 
 // --- Timeline ---
 func getTimeline(c *gin.Context) {
-	var items []models.TimelineItem
+	items := []models.TimelineItem{}
 	db.Find(&items)
 	c.JSON(http.StatusOK, items)
 }
@@ -897,7 +897,7 @@ func deletePhoto(c *gin.Context) {
 
 // --- Impacts ---
 func getImpacts(c *gin.Context) {
-	var impacts []models.ImpactStat
+	impacts := []models.ImpactStat{}
 	db.Find(&impacts)
 	c.JSON(http.StatusOK, impacts)
 }
@@ -930,7 +930,7 @@ func deleteImpactStat(c *gin.Context) {
 
 // --- Global Events ---
 func getGlobalEvents(c *gin.Context) {
-	var events []models.GlobalEvent
+	events := []models.GlobalEvent{}
 	db.Find(&events)
 	c.JSON(http.StatusOK, events)
 }
@@ -979,7 +979,7 @@ func createPerspective(c *gin.Context) {
 }
 
 func getPerspectives(c *gin.Context) {
-	var perspectives []models.Perspective
+	perspectives := []models.Perspective{}
 	if result := db.Find(&perspectives); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
 		return
@@ -998,7 +998,7 @@ func deletePerspective(c *gin.Context) {
 
 // --- Contact Messages ---
 func getContactMessages(c *gin.Context) {
-	var messages []models.ContactMessage
+	messages := []models.ContactMessage{}
 	db.Find(&messages)
 	c.JSON(http.StatusOK, messages)
 }
@@ -1022,7 +1022,7 @@ func deleteContactMessage(c *gin.Context) {
 func getArticles(c *gin.Context) {
 	category := c.Query("category")
 	lang := c.Query("lang")
-	var articles []models.Article
+	articles := []models.Article{}
 
 	query := db
 	if category != "" {
@@ -1051,7 +1051,7 @@ func getArticle(c *gin.Context) {
 }
 
 func getHeadlines(c *gin.Context) {
-	var headlines []models.Headline
+	headlines := []models.Headline{}
 	result := db.Find(&headlines)
 	if result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
@@ -1061,7 +1061,7 @@ func getHeadlines(c *gin.Context) {
 }
 
 func getPhotos(c *gin.Context) {
-	var photos []models.Photo
+	photos := []models.Photo{}
 	result := db.Find(&photos)
 	if result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": result.Error.Error()})
@@ -1133,7 +1133,7 @@ func uploadFile(c *gin.Context) {
 
 // --- Archive Books ---
 func getArchiveBooks(c *gin.Context) {
-	var books []models.ArchiveBook
+	books := []models.ArchiveBook{}
 	db.Find(&books)
 	c.JSON(http.StatusOK, books)
 }
@@ -1179,7 +1179,7 @@ func deleteArchiveBook(c *gin.Context) {
 
 // --- Global Anchors ---
 func getGlobalAnchors(c *gin.Context) {
-	var anchors []models.GlobalAnchor
+	anchors := []models.GlobalAnchor{}
 	db.Find(&anchors)
 	c.JSON(http.StatusOK, anchors)
 }
@@ -1231,8 +1231,8 @@ func searchAll(c *gin.Context) {
 		}
 	}
 
-	var articles []models.Article
-	var books []models.ArchiveBook
+	articles := []models.Article{}
+	books := []models.ArchiveBook{}
 
 	// Use Full-Text Search with Index
 	articleQuery := db.Where("to_tsvector('english', title || ' ' || excerpt || ' ' || content) @@ plainto_tsquery('english', ?)", q)
@@ -1276,10 +1276,10 @@ func connectRedis() {
 
 // --- Sitemap ---
 func sitemapHandler(c *gin.Context) {
-	var articles []models.Article
+	articles := []models.Article{}
 	db.Select("id").Find(&articles)
 
-	var books []models.ArchiveBook
+	books := []models.ArchiveBook{}
 	db.Select("id").Find(&books)
 
 	xml := `<?xml version="1.0" encoding="UTF-8"?>
@@ -1336,7 +1336,7 @@ func sitemapHandler(c *gin.Context) {
 
 // --- Advertisements ---
 func getAds(c *gin.Context) {
-	var ads []models.Advertisement
+	ads := []models.Advertisement{}
 	db.Where("is_active = ?", true).Find(&ads)
 	c.JSON(http.StatusOK, ads)
 }

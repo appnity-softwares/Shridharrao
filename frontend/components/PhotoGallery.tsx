@@ -204,7 +204,7 @@ const PhotoGallery: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 auto-rows-[300px] lg:auto-rows-[350px] gap-8">
-            {filteredPhotos.map((photo, idx) => (
+            {Array.isArray(filteredPhotos) && filteredPhotos.map((photo, idx) => (
               <TiltCard
                 key={photo.id}
                 photo={photo}

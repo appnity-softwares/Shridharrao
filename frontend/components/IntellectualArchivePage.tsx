@@ -32,10 +32,10 @@ const IntellectualArchivePage: React.FC = () => {
         loadBooks();
     }, []);
 
-    const filteredBooks = books.filter(book =>
+    const filteredBooks = Array.isArray(books) ? books.filter(book =>
         book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         book.author.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    ) : [];
 
     if (loading) return (
         <div className="min-h-screen bg-[#FBFBFF] flex items-center justify-center">
