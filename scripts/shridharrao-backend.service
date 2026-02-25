@@ -1,0 +1,14 @@
+[Unit]
+Description=Shridhar Rao Backend Service
+After=network.target postgresql.service redis-server.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/shridharrao/backend
+ExecStart=/var/www/shridharrao/backend/server
+Restart=always
+EnvironmentFile=/var/www/shridharrao/backend/.env
+
+[Install]
+WantedBy=multi-user.target
