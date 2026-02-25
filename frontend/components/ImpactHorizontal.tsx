@@ -79,7 +79,7 @@ const ImpactHorizontal: React.FC = () => {
                         </div>
                     </div>
 
-                    {initiatives.map((item, idx) => (
+                    {Array.isArray(initiatives) && initiatives.map((item, idx) => (
                         <div
                             key={idx}
                             className="w-[450px] lg:w-[550px] h-[550px] lg:h-[650px] flex-shrink-0 p-12 lg:p-16 rounded-[60px] lg:rounded-[80px] bg-[#FAFAFA] border border-slate-50 premium-card flex flex-col justify-between group relative overflow-hidden shrink-0 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.05)]"
@@ -127,7 +127,7 @@ const ImpactHorizontal: React.FC = () => {
                         </div>
 
                         <div className="space-y-8">
-                            {globalAnchors.slice(0, 2).map((aff, i) => (
+                            {Array.isArray(globalAnchors) && globalAnchors.slice(0, 2).map((aff, i) => (
                                 <a
                                     key={i}
                                     href={aff.link && !aff.link.startsWith('http') && !aff.link.startsWith('/') ? `https://${aff.link}` : (aff.link || "#")}

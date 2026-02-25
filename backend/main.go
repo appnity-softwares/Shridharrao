@@ -64,7 +64,11 @@ func main() {
 	}
 
 	// Migrations
-	db.AutoMigrate(&models.Article{}, &models.Headline{}, &models.Photo{}, &models.Perspective{}, &models.ImpactStat{}, &models.GlobalEvent{}, &models.TimelineItem{}, &models.AboutConfig{}, &models.ContactMessage{}, &models.ArchiveBook{}, &models.GlobalAnchor{}, &models.Advertisement{}, &models.DonationConfig{}, &models.User{}, &models.AuditLog{})
+	if err := db.AutoMigrate(&models.Article{}, &models.Headline{}, &models.Photo{}, &models.Perspective{}, &models.ImpactStat{}, &models.GlobalEvent{}, &models.TimelineItem{}, &models.AboutConfig{}, &models.ContactMessage{}, &models.ArchiveBook{}, &models.GlobalAnchor{}, &models.Advertisement{}, &models.DonationConfig{}, &models.User{}, &models.AuditLog{}); err != nil {
+		log.Printf("Migration failed: %v", err)
+	} else {
+		log.Println("Migration successful")
+	}
 
 	// Seed data
 	seedData()
@@ -555,6 +559,18 @@ func seedData() {
             <p>This deep-dive is an invitation to consider the silent metamorphosis of our policies. It is a call to look beyond the headlines and into the fine print of our governance, where the true future of the nation is being written.</p>
         `,
 				Sidenote: "A critical observation from the 2026 Editorial Summit regarding decentralized journalism.",
+			},
+			{
+				ID:       "art-2",
+				Category: "Archive",
+				Title:    "The Decade of Decentralization",
+				Excerpt:  "Looking back at the structural shifts between 2014 and 2024.",
+				Author:   "Shridhar Rao",
+				Date:     "Dec 20, 2024",
+				ReadTime: "20 min",
+				Image:    "https://images.unsplash.com/photo-1540304647900-530962325c13?q=80&w=2070&auto=format&fit=crop",
+				Content:  "<p>Historical archive content...</p>",
+				Sidenote: "First published in the 2014 Decade Series.",
 			},
 			{
 				ID:       "op-1",

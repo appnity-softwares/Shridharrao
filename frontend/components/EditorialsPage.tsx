@@ -118,7 +118,7 @@ const EditorialsPage: React.FC = () => {
                                 </h3>
                             </div>
                             <div className="space-y-10 lg:space-y-12">
-                                {recentArticles.filter(a => a.id !== topStory.id).slice(0, 4).map((item, idx) => (
+                                {Array.isArray(recentArticles) && recentArticles.filter(a => a.id !== topStory.id).slice(0, 4).map((item, idx) => (
                                     <Link key={item.id} to={`/journal/${item.id}`} className="block group" data-cursor="read">
                                         <div className="flex gap-5 md:gap-6 items-start">
                                             <span className="text-4xl md:text-5xl font-black text-slate-100 group-hover:text-accent/30 transition-colors leading-[0.8]">{(idx + 1).toString().padStart(2, '0')}</span>
@@ -141,7 +141,7 @@ const EditorialsPage: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
                     <AnimatePresence mode="popLayout">
-                        {articles.map((art, idx) => (
+                        {Array.isArray(articles) && articles.map((art, idx) => (
                             <motion.div
                                 key={art.id}
                                 layout

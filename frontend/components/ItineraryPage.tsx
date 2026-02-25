@@ -87,7 +87,7 @@ const ItineraryPage: React.FC = () => {
                 <div className="absolute left-1/2 top-48 bottom-48 w-[1px] bg-slate-200 hidden md:block"></div>
 
                 <div className="space-y-48 md:space-y-80 relative">
-                    {events.map((event, idx) => (
+                    {Array.isArray(events) && events.map((event, idx) => (
                         <motion.div
                             key={event.id}
                             initial={{ opacity: 0, y: 50 }}
