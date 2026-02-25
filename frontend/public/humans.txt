@@ -1,0 +1,10 @@
+/* TEAM */
+  Designed & Developed by: Appnity Softwares Pvt. Ltd.
+  Contact: business@appnity.co.in
+  Site: https://appnity.co.in
+  Location: Smriti Nagar Bhiali Chhattisgarh India 490020
+
+/* SITE */
+  Last update: 2026/01/31
+  Standards: HTML5, CSS3, React, Golang
+  Components: TailwindCSS, Framer Motion

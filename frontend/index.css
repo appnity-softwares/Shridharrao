@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Outfit', sans-serif;
+  --color-primary: #121212;
+  --color-secondary: #8B1A1A;
+  --color-accent: #C5A059;
+  --color-gold: #B8860B;
+}
+
+:root {
+  font-family: 'Outfit', system-ui, sans-serif;
+  line-height: 1.6;
+  font-weight: 500;
+  color: #0c0c0c;
+  background-color: #FFFFFF;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #FFFFFF;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.02) 1px, transparent 0);
+  background-size: 40px 40px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C5A059;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: -0.01em;
+  color: #121212;
+}
+
+/* Reveal Utility */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  filter: blur(5px);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Premium Effects */
+.gold-gradient {
+  background: linear-gradient(135deg, #A67C00 0%, #C5A059 50%, #A67C00 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+/* Marquee Animation */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.pulse-marquee {
+  white-space: nowrap;
+  animation: marquee-scroll 80s linear infinite;
+}
+
+/* 3D Book Cover */
+.book-container {
+  perspective: 2500px;
+}
+
+.book-cover {
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Custom Cursor */
+#custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 10000;
+  border-radius: 50%;
+  border: 1.5px solid #C5A059;
+}
+
+/* Reading Mode */
+.reading-mode {
+  background-color: #FDFBF7 !important;
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+}
+
+.reading-mode-content {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.4rem;
+  line-height: 2.1;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Editorial Drop Cap */
+.drop-cap:first-letter {
+  float: left;
+  font-size: 5.5rem;
+  line-height: 0.8;
+  padding-top: 0.1em;
+  padding-right: 0.1em;
+  padding-left: 0.1em;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  color: #C5A059;
+}
+
+/* Sidenote Utility */
+.sidenote {
+  position: absolute;
+  left: 105%;
+  top: 0;
+  width: 250px;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #94a3b8;
+  line-height: 1.8;
+  border-left: 1px solid #f1f5f9;
+  padding-left: 1.5rem;
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .sidenote {
+    display: block;
+  }
+}
+
+/* Architectural Lines */
+.arch-line {
+  position: absolute;
+  background-color: rgba(18, 18, 18, 0.03);
+  z-index: 0;
+}
+
+.arch-line-h {
+  width: 100%;
+  height: 1px;
+}
+
+.arch-line-v {
+  width: 1px;
+  height: 100%;
+}
+
+/* Search Backdrop Blur */
+.search-backdrop {
+  backdrop-filter: blur(100px) saturate(150%);
+  -webkit-backdrop-filter: blur(100px) saturate(150%);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.ink-swash {
+  mask-image: url('https://cdn.pixabay.com/photo/2016/03/31/19/21/ink-1294895_1280.png');
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
