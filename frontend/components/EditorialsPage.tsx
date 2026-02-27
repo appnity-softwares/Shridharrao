@@ -33,14 +33,14 @@ const EditorialsPage: React.FC = () => {
         queryFn: fetchAds
     });
 
-    const bannerAd = ads.find(ad => ad.type === 'banner' && ad.isActive);
-    const sidebarAds = ads.filter(ad => ad.type === 'sidebar' && ad.isActive);
+    const bannerAd = Array.isArray(ads) ? ads.find(ad => ad.type === 'banner' && ad.isActive) : undefined;
+    const sidebarAds = Array.isArray(ads) ? ads.filter(ad => ad.type === 'sidebar' && ad.isActive) : [];
 
     const loading = isLoadingArticles || isLoadingRecent;
 
     if (loading) return <div className="min-h-screen bg-white flex items-center justify-center">Loading...</div>;
 
-    const topStory = articles.find(a => a.id === 'top-1') || articles[0];
+    const topStory = Array.isArray(articles) ? articles.find(a => a.id === 'top-1') || articles[0] : undefined;
     if (!topStory) return <div className="min-h-screen bg-white flex items-center justify-center">No editorials found.</div>;
 
     return (

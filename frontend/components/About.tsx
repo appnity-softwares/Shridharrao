@@ -135,7 +135,7 @@ const About: React.FC = () => {
           </div>
 
           <div className="space-y-40">
-            {timeline.map((item, idx) => (
+            {Array.isArray(timeline) && timeline.map((item, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 50 }}

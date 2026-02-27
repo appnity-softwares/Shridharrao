@@ -91,6 +91,7 @@ const PhotoGallery: React.FC = () => {
   });
 
   const filteredPhotos = useMemo(() => {
+    if (!Array.isArray(photos)) return [];
     return photos
       .filter(p => activeCategory === 'All' || p.category === activeCategory)
       .filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()));
