@@ -70,6 +70,12 @@ func main() {
 		log.Println("Migration successful")
 	}
 
+	// Create search indexes (after tables exist)
+	db.Exec("CREATE INDEX IF NOT EXISTS idx_articles_fulltext ON articles USING gin(to_tsvector('english', title || ' ' || excerpt || ' ' || content))")
+	db.Exec("CREATE INDEX IF NOT EXISTS idx_archive_books_fulltext ON archive_books USING gin(to_tsvector('english', title || ' ' || author || ' ' || reflection))")
+	db.Exec("CREATE INDEX IF NOT EXISTS idx_articles_date ON articles(date DESC)")
+	db.Exec("CREATE INDEX IF NOT EXISTS idx_contact_messages_date ON contact_messages(date DESC)")
+
 	// Seed data
 	seedData()
 
@@ -245,11 +251,7 @@ func connectDB() {
 	sqlDB.SetMaxOpenConns(100)
 	sqlDB.SetConnMaxLifetime(time.Hour)
 
-	// Custom Migration for GIN search index and others
-	db.Exec("CREATE INDEX IF NOT EXISTS idx_articles_fulltext ON articles USING gin(to_tsvector('english', title || ' ' || excerpt || ' ' || content))")
-	db.Exec("CREATE INDEX IF NOT EXISTS idx_archive_books_fulltext ON archive_books USING gin(to_tsvector('english', title || ' ' || author || ' ' || reflection))")
-	db.Exec("CREATE INDEX IF NOT EXISTS idx_articles_date ON articles(date DESC)")
-	db.Exec("CREATE INDEX IF NOT EXISTS idx_contact_messages_date ON contact_messages(date DESC)")
+
 }
 
 func connectR2() {
