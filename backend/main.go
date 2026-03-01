@@ -83,7 +83,7 @@ func main() {
 		FrameDeny:             true,
 		ContentTypeNosniff:    true,
 		BrowserXssFilter:      true,
-		ContentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://images.unsplash.com " + r2PublicUrl + "; connect-src 'self'; frame-ancestors 'none';",
+		ContentSecurityPolicy: "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://images.unsplash.com https://pub-7dd3d9aa085c4995b8e96a9de1e1f5f3.r2.dev " + r2PublicUrl + "; connect-src 'self' https://api.shridharrao.com; frame-ancestors 'none';",
 	}))
 
 	// Custom Branding Header
@@ -96,7 +96,16 @@ func main() {
 	r.Use(gzip.Gzip(gzip.DefaultCompression))
 
 	// Configure CORS
-	allowedOrigins := []string{"http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "http://localhost:8080"}
+	allowedOrigins := []string{
+		"http://localhost:5173",
+		"http://localhost:3000",
+		"http://127.0.0.1:5173",
+		"http://localhost:8080",
+		"https://shridharrao.com",
+		"https://www.shridharrao.com",
+		"http://shridharrao.com",
+		"http://www.shridharrao.com",
+	}
 	if envOrigins := os.Getenv("ALLOWED_ORIGINS"); envOrigins != "" {
 		allowedOrigins = append(allowedOrigins, strings.Split(envOrigins, ",")...)
 	}
@@ -396,7 +405,11 @@ func loginHandler(c *gin.Context) {
 
 	// Set Refresh Token in HttpOnly Cookie
 	secure := os.Getenv("GIN_MODE") == "release"
-	c.SetSameSite(http.SameSiteLaxMode)
+	if secure {
+		c.SetSameSite(http.SameSiteNoneMode)
+	} else {
+		c.SetSameSite(http.SameSiteLaxMode)
+	}
 	c.SetCookie("refresh_token", rt, 60*60*24*7, "/", "", secure, true)
 
 	c.JSON(http.StatusOK, gin.H{"token": at})
@@ -453,7 +466,11 @@ func refreshHandler(c *gin.Context) {
 	}
 
 	secure := os.Getenv("GIN_MODE") == "release"
-	c.SetSameSite(http.SameSiteLaxMode)
+	if secure {
+		c.SetSameSite(http.SameSiteNoneMode)
+	} else {
+		c.SetSameSite(http.SameSiteLaxMode)
+	}
 	c.SetCookie("refresh_token", rt, 60*60*24*7, "/", "", secure, true)
 	c.JSON(http.StatusOK, gin.H{"token": at})
 }
